@@ -30,3 +30,6 @@ include/.*.swp
 # Since Doxygen file id added to the repo, no need to include doc folder (which un-necessarily takes space. We will include only index.html
 doc/*
 !doc/html/index.html
+
+# Additions by vachan
+.vscode/* # Visual Studio Code files
