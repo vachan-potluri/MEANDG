@@ -9,7 +9,7 @@ int main(){
 	srand(int(time(0)));
 
 	//runAllTests();
-	Test::TestEulerEquations1();
+	Test::TestPoint();
 
 	return 0;
 }
