@@ -32,4 +32,5 @@ doc/*
 !doc/html/index.html
 
 # Additions by vachan
-.vscode/* # Visual Studio Code files
+# Visual Studio Code files
+.vscode/* 
