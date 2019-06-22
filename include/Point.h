@@ -6,14 +6,14 @@
 
 class Point {
 
-	
-public:
-
+private:
 	/// Global Variables denoting the three coordinates of a point
 	double x;
 	double y;
 	double z;
 	int id;
+	
+public:
 
 	/// Constructor with dfault value pointing at the origin
 	Point(double x = 0.0 , double y = 0.0, double z = 0.0, int id = 0);
