@@ -7,19 +7,7 @@ class TensorO1{
 		/// Destructor
 		~TensorO1();
 
-		// Data members
-
-		/// Order of the tensor 
-		static const int order = 1;	
-
-		/// Size of the O1 tensor (i.e. dimension)
-		unsigned int size;	        
-
-		/// Value of the vector (of datatype numType)
-		numType *value;			
-
-		/// Returns 'true' if space has been allocated for value
-		bool sizeFlag;			
+		// Data members			
 
 		/** norm of a vector **/
 		struct Norm{
@@ -66,6 +54,18 @@ class TensorO1{
 		void randomize();
 
 	private:
+		/// Order of the tensor 
+		static const int order = 1;	
+
+		/// Size of the O1 tensor (i.e. dimension)
+		unsigned int size;	        
+
+		/// Value of the vector (of datatype numType)
+		numType *value;			
+
+		/// Returns 'true' if space has been allocated for value
+		bool sizeFlag;
+		
 		// Prevent copy constructor
 		TensorO1(const TensorO1&);
 		// copy assignment operator 
