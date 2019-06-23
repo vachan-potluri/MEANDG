@@ -65,7 +65,7 @@ class TensorO1{
 
 		/// Returns 'true' if space has been allocated for value
 		bool sizeFlag;
-		
+
 		// Prevent copy constructor
 		TensorO1(const TensorO1&);
 		// copy assignment operator 
@@ -93,7 +93,7 @@ TensorO1<numType>::TensorO1(unsigned int size){
 // Destructor
 template<typename numType>
 TensorO1<numType>::~TensorO1(){
-	delete[] this->value;
+	if(sizeFlag) delete[] this->value;
 };
 
 
@@ -106,7 +106,7 @@ unsigned int TensorO1<numType>::getSize()const{
 template<typename numType>
 void TensorO1<numType>::setSize(unsigned int size){
 	// first delete the existing value array
-	delete[] this->value;
+	if(sizeFlag) delete[] this->value;
 	sizeFlag = false;
 
 	// then set the new size and array
