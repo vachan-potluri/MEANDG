@@ -10,6 +10,7 @@ int main(){
 
 	//runAllTests();
 	Test::TestPoint();
+	Test::TestTensor();
 
 	return 0;
 }
