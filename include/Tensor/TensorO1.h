@@ -15,6 +15,18 @@ class TensorO1{
 		};
 		Norm norm;
 
+		/// Order of the tensor 
+		static const int order = 1;	
+
+		/// Size of the O1 tensor (i.e. dimension)
+		unsigned int size;	        
+
+		/// Value of the vector (of datatype numType)
+		numType *value;			
+
+		/// Returns 'true' if space has been allocated for value
+		bool sizeFlag;
+
 		// Methods related to size and accessing functions
 
 		/// Get method for size 
@@ -54,18 +66,6 @@ class TensorO1{
 		void randomize();
 
 	private:
-		/// Order of the tensor 
-		static const int order = 1;	
-
-		/// Size of the O1 tensor (i.e. dimension)
-		unsigned int size;	        
-
-		/// Value of the vector (of datatype numType)
-		numType *value;			
-
-		/// Returns 'true' if space has been allocated for value
-		bool sizeFlag;
-
 		// Prevent copy constructor
 		TensorO1(const TensorO1&);
 		// copy assignment operator 
