@@ -166,6 +166,53 @@ void RefCell::generateGradLagMatrix(){
 };
 
 
+void RefCell::generateProjMatrix()
+{
+	// Set size
+	int n_subcells = this->order+1;
+	this->ProjMatrix.setSize(n_subcells*n_subcells*n_subcells,(this->order+1)*(this->order+1)*(this->order+1));
+	this->ProjMatrix.setAll(0.0);
+
+	// Projection matrix requires order/2+1 LGL quadrature
+	// Get these points and weights
+	TensorO1<double> q_points_x, q_points_y, q_points_z, q_weights; // q for quadrature
+	int temp = this->order/2 + 1;
+	FunctionalSpace Fn(temp,IntFlag::exact);
+	Fn.LGLRootsAndWeights3D(temp,temp,temp,&q_points_x,&q_points_y,&q_points_z,&q_weights);
+
+	// Get interpolation points for evaluating lagrange polynomials
+	TensorO1<double> i_points, dummy;
+	Fn.setOrder(this->order);
+	Fn.LGLRootsAndWeights1D(&i_points,&dummy);
+
+	int xid, yid, zid, j; // IDs for subcell indexing
+	int i; // index for lagrange basis indexing
+	int k; // index for quadrature
+	double x, y, z; // current quadrature location mapped to refcell
+	double curr_contrib; // current quadrature point contribution to P_ji
+	TensorO1<double> f; // for evaluating lagrange polynomial
+	f.setAll(0.0);
+	for(xid = 0; xid<n_subcells; xid++){
+		for(yid = 0; yid<n_subcells; yid++){
+			for(zid=0; zid<n_subcells; zid++){
+				j = zid + n_subcells*yid + n_subcells*n_subcells*xid;
+				for(i=0; i<pow(Fn.getOrder()+1,3); i++){
+					f.setValue(i,1.0); // set current polynomial coefficient to 1
+					for(k=0; k<q_weights.getSize(); k++){
+						x = 2.0*xid/n_subcells - 1.0 + (q_points_x.getValue(k)+1.0)/n_subcells;
+						y = 2.0*yid/n_subcells - 1.0 + (q_points_y.getValue(k)+1.0)/n_subcells;
+						z = 2.0*zid/n_subcells - 1.0 + (q_points_z.getValue(k)+1.0)/n_subcells;
+						curr_contrib = q_weights.getValue(k)*Test::lagrangeInterpolation3D(x,y,z,&i_points,&f);
+						this->ProjMatrix.addValue(j,i,curr_contrib);
+					}
+					f.setValue(i,0.0); // reset f to all-zeros
+				}
+			}
+		}
+	}
+}
+
+
 // Get pointer to the Lagrange matrix
 TensorO2<double>* RefCell::getLagMatrix(){
 	return &this->LagMatrix;
