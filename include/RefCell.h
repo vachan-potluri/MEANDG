@@ -39,6 +39,8 @@ class RefCell{
 		void generateLagMatrix();
 		/// Generate Gradient of Lagrange matrix
 		void generateGradLagMatrix();
+		/// Generate projection matrix
+		void generateProjMatrix();
 		//add generator functions for other matrices
 
 		/// Get Quadrature weights
@@ -55,6 +57,9 @@ class RefCell{
 
 		/// Get Lagrange matrix
 		TensorO2<double>* getLagDtMatrix();
+
+		/// Get projection matrix
+		const TensorO2<double>* getProjMatrix() const;
 
 
 		void printLagMatrix();
@@ -81,6 +86,8 @@ class RefCell{
 		TensorO2<double> LagDrMatrix ; //Derivative matrix of Lagrange polynomials in r direction (analogous to x in ref. plane)
 		TensorO2<double> LagDsMatrix ; //Derivative matrix of Lagrange polynomials in s direction (analogous to y in ref. plane)
 		TensorO2<double> LagDtMatrix ; //Derivative matrix of Lagrange polynomials in t direction (analogous to z in ref. plane)
+
+		TensorO2<double> ProjMatrix; // subcell projection matrix: (2N+1)^3 x (N+1)^3
 };
 
 
